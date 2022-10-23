@@ -6,9 +6,6 @@ Least Square
 
 import numpy as np
 
-import sys
-sys.path.append("../../ex02/template") 
-from costs import *
 
 def least_squares(y, tx):
     """Calculate the least squares solution.
@@ -27,7 +24,11 @@ def least_squares(y, tx):
     """
     # least squares
     opt_w = np.linalg.inv(tx.T.dot(tx)).dot(tx.T).dot(y)
-    mse = compute_loss(y, tx, opt_w)
     
-    return opt_w, mse
+    N = y.shape[0]
+    e =  y - tx.dot(opt_w)
+    loss_mse = (1/(2*N))*e.dot(e.T)
+
+    
+    return opt_w, loss_mse
 
